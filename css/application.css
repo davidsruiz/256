@@ -1,0 +1,21 @@
+body {
+  text-align: center;
+}
+
+#game {
+  display: inline-block;
+}
+
+@import 'https://fonts.googleapis.com/css?family=Montserrat';
+#score {
+  display: inline-block;
+  width: 256px;
+  margin: 96px 0px;
+  padding: 0px 24px;
+  font-size: 64pt;
+  color: #666;
+  font-family: 'Montserrat', sans-serif;
+  text-align: right;
+
+  vertical-align: top;
+}
