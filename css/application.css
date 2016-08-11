@@ -1,5 +1,8 @@
+* {transition-duration: 0.2s;} td {transition-duration: 0.05s;}
+
 body {
   text-align: center;
+  overflow: hidden;
 }
 
 #game {
