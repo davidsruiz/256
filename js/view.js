@@ -1,6 +1,6 @@
 
 var c = e => document.createElement(e);
-// var $ = s => document.getElementById(s) || document.getElementsByTagName(s)[0];
+var $ = s => document.getElementById(s) || document.getElementsByTagName(s)[0];
 
 function generateBoardView() {
   table = c("table");
@@ -14,11 +14,11 @@ function generateBoardView() {
     table.appendChild(tr);
   });
   if($("table")) $("table").remove();
-  $("#game")[0].appendChild(table);
+  $("game").appendChild(table);
 }
 
 function updateBoardView() {
-  var table = $("table")[0];
+  var table = $("table");
   loop(cols().length, i => {
     loop(rows().length, j => {
       var value = row(i)[j];
@@ -39,9 +39,11 @@ function showGameOver() {
 function generateScoreView() {
   var span = c("span");
   span.id = "score";
-  $("#game")[0].appendChild(span);
+  var span = c("span");
+  span.id = "score";
+  $("game").appendChild(span);
 }
 
 function updateScoreView() {
-  $("span")[0].textContent = score;
+  $("span").textContent = score;
 }
