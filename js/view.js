@@ -14,11 +14,11 @@ function generateBoardView() {
     table.appendChild(tr);
   });
   if($("table")) $("table").remove();
-  $("#game").appendChild(table);
+  $("#game")[0].appendChild(table);
 }
 
 function updateBoardView() {
-  var table = $("table");
+  var table = $("table")[0];
   loop(cols().length, i => {
     loop(rows().length, j => {
       var value = row(i)[j];
@@ -39,7 +39,7 @@ function showGameOver() {
 function generateScoreView() {
   var span = c("span");
   span.id = "score";
-  $("#game").appendChild(span);
+  $("#game")[0].appendChild(span);
 }
 
 function updateScoreView() {
