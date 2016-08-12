@@ -1,12 +1,12 @@
 
-var c = e => document.createElement(e);
-var $ = s => document.getElementById(s) || document.getElementsByTagName(s)[0];
+var c = function (e) { return document.createElement(e); }
+var $ = function (s) { return document.getElementById(s) || document.getElementsByTagName(s)[0]; }
 
 function generateBoardView() {
   table = c("table");
-  loop(cols().length, i => {
+  loop(cols().length, function (i) {
     tr = c("tr");
-    loop(rows().length, j => {
+    loop(rows().length, function (j) {
       td = c("td");
       td.textContent = `${j} - ${i}`;
       tr.appendChild(td);
@@ -19,8 +19,8 @@ function generateBoardView() {
 
 function updateBoardView() {
   var table = $("table");
-  loop(cols().length, i => {
-    loop(rows().length, j => {
+  loop(cols().length, function (i) {
+    loop(rows().length, function (j) {
       var value = row(i)[j];
       var cell = table.children[i].children[j];
       cell.textContent = (value == nilValue) ? "" : value;
@@ -37,8 +37,6 @@ function showGameOver() {
 // score
 
 function generateScoreView() {
-  var span = c("span");
-  span.id = "score";
   var span = c("span");
   span.id = "score";
   $("game").appendChild(span);

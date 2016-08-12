@@ -1,6 +1,6 @@
 
 
-var Time = { sec: n => n * 1000};
+var Time = { sec: function(n) { return n * 1000}};
 
 
 var interval = Time.sec(0.05);
@@ -14,7 +14,7 @@ function solve(algorithm) {
 }
 
 function start(algorithm) {
-  if(!gameover && !stop) setTimeout(() => { algorithm.next(); start(algorithm) }, interval);
+  if(!gameover && !stop) setTimeout(function() { algorithm.next(); start(algorithm) }, interval);
 }
 
 var bidirectionalBias = {
@@ -24,7 +24,7 @@ var bidirectionalBias = {
   next: function() {
     // copy board for test operations
     var boardCopy = [];
-    loop(board.length, (i) => {
+    loop(board.length, function(i) {
       boardCopy.push(row(i).copy());
     });
 

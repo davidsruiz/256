@@ -1,13 +1,13 @@
 // GAME
 
-var log = l => console.log(l);
-var loop = (times, block) => {for(var i = 0; i < times; i++) block(i);};
+var log = function (l) { console.log(l) };
+var loop = function (times, block) { for(var i = 0; i < times; i++) block(i); };
 
-var randomBetween = (a, b) => Math.floor(Math.random()*(b-a)) + a;
+var randomBetween = function (a, b) { return Math.floor(Math.random()*(b-a)) + a };
 
 Array.prototype.fillWithBlock = function(spaces, block) {
   var that = this;
-  loop(spaces, (i) => {
+  loop(spaces, function (i) {
 		that[i] = block();
 	});
 	return that;
@@ -30,7 +30,10 @@ Array.prototype.copy = function() {
   return this.slice();
 };
 
-Array.prototype.flatten2d = function() { return [].concat(...this); };
+// Array.prototype.flatten2d = function() { return [].concat(...this); };
+Array.prototype.flatten2d = function() { return this.reduce(function(a, b) {
+  return a.concat(b);
+}, []); };
 
 Number.prototype.times = function(block) { loop(this, block);};
 
@@ -41,7 +44,7 @@ String.prototype.is = function(str) { return this.toString() == str };
 
 var gameover, slid, score;
 
-function process(row, left = true) {
+function process(row, left) { if(typeof(left) == "undefined") left = true;
 	return left ? combine(row) : combine(row.reverse()).reverse();
 }
 
@@ -88,7 +91,7 @@ function removeTrailingFrom(arr, val) {
 
 function emptyIndexesIn(row) {
   var indicies = [];
-  loop(row.length, (i) => {
+  loop(row.length, function (i) {
     if(row[i] == nilValue)indicies.push(i);
   });
   return indicies;
@@ -109,7 +112,7 @@ function cols() { return board.pivot() }
 function row(i) { return rows()[i] }
 function col(i) { return cols()[i] }
 
-function generateBoard() { board = Array().fillWithBlock(height, () => Array(width).fill(nilValue) ) }
+function generateBoard() { board = Array().fillWithBlock(height, function () { return Array(width).fill(nilValue)} ) }
 
 function setCoordinate(x, y, value) { board[y][x] = value }
 function setrow(i, row) { board[i] = row }
@@ -208,7 +211,7 @@ function noMovesPossible() {
   if(screenIsFull()){
     // copy board for test operations
     boardCopy = [];
-    loop(board.length, (i) => {
+    loop(board.length, function (i) {
       boardCopy.push(row(i).copy());
     });
 
@@ -218,11 +221,11 @@ function noMovesPossible() {
 
     slid = false;
 
-    loop(rows().length, (i) => {
+    loop(rows().length, function (i) {
       process(row(i), true);
       process(row(i), false);
     });
-    loop(cols().length, (i) => {
+    loop(cols().length, function (i) {
       process(col(i), true);
       process(col(i), false);
     });
@@ -238,7 +241,7 @@ function noMovesPossible() {
 
 function screenIsFull() {
   var result = true;
-  rows().length.times((i) => {
+  rows().length.times(function (i) {
     if(emptyIndexesIn(row(i)).length != 0) {
       result = false;
     }
@@ -248,11 +251,11 @@ function screenIsFull() {
 
 function moveBoard({flip: flip, verticle: verticle}) {
 	if(!verticle) {
-		loop(rows().length, (i) => {
+		loop(rows().length, function (i) {
 			setrow(i, process(row(i), !flip));
 		});
 	} else {
-		loop(cols().length, (i) => {
+		loop(cols().length, function (i) {
 			setcol(i, process(col(i), !flip));
 		});
 	}
@@ -260,7 +263,7 @@ function moveBoard({flip: flip, verticle: verticle}) {
 
 function newNumber() {
   flattenedBoard = board.flatten2d();
-  flattenedBoard = flattenedBoard.filter(function(e) { return e !== nilValue }).sort((a, b) => a - b);
+  flattenedBoard = flattenedBoard.filter(function(e) { return e !== nilValue }).sort(function (a, b) { return a - b });
   fourthHighest = flattenedBoard[3];
   p = Math.random() < 0.1; // probability
   if(p) log(`happened with: ${fourthHighest}`)
@@ -268,9 +271,9 @@ function newNumber() {
 }
 
 function logBoard() {
-	loop(rows().length, (i) => log(rows()[i]));
+	loop(rows().length, function (i) { log(rows()[i]) });
 	log("");
-	// loop(rows().length, (i) => log(i + " | " + row(i).join(" ")));
+	// loop(rows().length, function (i) {log(i + " | " + row(i).join(" "))});
 }
 
 // setup
@@ -308,7 +311,7 @@ function endGame() {
   updateBoardView();
   showGameOver();
 
-  setTimeout(() => setup(), Time.sec(0.5));
+  setTimeout(function () {setup()}, Time.sec(0.5));
 }
 
 
