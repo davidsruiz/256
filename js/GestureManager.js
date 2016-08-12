@@ -723,5 +723,3 @@ var GestureManager = (function () {
     };
     return GestureManager;
 })();
-exports.GestureManager = GestureManager;
-//# sourceMappingURL=GestureManager.js.map
