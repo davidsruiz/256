@@ -33,7 +33,7 @@ function enableScroll() {
 
 disableScroll();
 
-var gm = new GM.GestureManager(document);
+var gm = new GestureManager(document);
 
 gm.on(
   "swipe",
