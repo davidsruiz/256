@@ -1,6 +1,6 @@
 
 var c = e => document.createElement(e);
-var $ = s => document.getElementById(s) || document.getElementsByTagName(s)[0];
+// var $ = s => document.getElementById(s) || document.getElementsByTagName(s)[0];
 
 function generateBoardView() {
   table = c("table");
@@ -14,7 +14,7 @@ function generateBoardView() {
     table.appendChild(tr);
   });
   if($("table")) $("table").remove();
-  $("game").appendChild(table);
+  $("#game").appendChild(table);
 }
 
 function updateBoardView() {
@@ -39,9 +39,7 @@ function showGameOver() {
 function generateScoreView() {
   var span = c("span");
   span.id = "score";
-  var span = c("span");
-  span.id = "score";
-  $("game").appendChild(span);
+  $("#game").appendChild(span);
 }
 
 function updateScoreView() {
