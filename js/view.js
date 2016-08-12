@@ -43,5 +43,5 @@ function generateScoreView() {
 }
 
 function updateScoreView() {
-  $("span").textContent = score;
+  $("span")[0].textContent = score;
 }
