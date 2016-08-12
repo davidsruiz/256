@@ -38,7 +38,7 @@ var gm = new GestureManager(document);
 gm.on(
   "swipe",
   function( touch_points, direction ) {
-    console.log(`${direction} swipe`);
-    console.log(touch_points);
+      shift(direction);
+      updateViews();
   },
   1);
